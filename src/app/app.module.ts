@@ -15,6 +15,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {KeycloakAngularModule} from 'keycloak-angular';
 import {OperationsService} from './services/operations.service';
 import { AccountComponent } from './components/account/account.component';
+import {CompteService} from './services/compte.service';
 /*export function kcFactory(keycloakService: KeycloakService) {
   return () => keycloakService.init();
 }*/
@@ -39,7 +40,7 @@ import { AccountComponent } from './components/account/account.component';
     useFactory: kcFactory,
     deps: [KeycloakService],
     multi: true
-  }*/, OperationsService],
+  }*/, OperationsService, CompteService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

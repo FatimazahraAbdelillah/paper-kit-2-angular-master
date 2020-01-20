@@ -9,7 +9,7 @@ export class OperationsService {
     public host: String= 'http://localhost:8087'
     constructor(private http: HttpClient) { }
 
-    getAllOperations() {
-        return this.http.get(this.host + '/operations');
+    getAllOperations(codeCompte: string) {
+        return this.http.get(this.host + '/operations/search/findOperationsByCompte_CodeCompte?code=' + codeCompte);
     }
 }

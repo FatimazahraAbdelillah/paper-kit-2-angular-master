@@ -18,14 +18,7 @@ export class AppComponent implements OnInit {
     constructor( private renderer: Renderer, private operationsService: OperationsService,
                  private router: Router, @Inject(DOCUMENT) private document: any, private element: ElementRef,
                  public location: Location) {}
-    operation;
     ngOnInit() {
-        this.operationsService.getAllOperations().subscribe(data => {
-            this.operation = data;
-            console.log(this.operation)
-        }, err => {
-            console.log(err)
-        })
         var navbar : HTMLElement = this.element.nativeElement.children[0].children[0];
         this._router = this.router.events.filter(event => event instanceof NavigationEnd).subscribe((event: NavigationEnd) => {
             if (window.outerWidth > 991) {

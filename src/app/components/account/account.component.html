@@ -34,7 +34,7 @@
           <a class="nav-link text-primary" href="#"><i class="nc-icon nc-bell-55" aria-hidden="true"></i>&nbsp;</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-primary" href="#">&nbsp;DÉCONNEXION</a>
+          <a class="nav-link text-primary"  [routerLink]="['/home']">&nbsp;DÉCONNEXION</a>
         </li>
       </ul>
     </div>
@@ -50,7 +50,7 @@
       <div class="card-body">
         <form #f="ngForm" (ngSubmit)="consulterCompte()">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Code Compte">
+            <input type="text" class="form-control" name="code" placeholder="Code Compte" [(ngModel)]="codeCompte">
             <div class="input-group-append">
               <button class="btn btn-success" type="submit" >OK</button>
             </div>
@@ -58,53 +58,152 @@
         </form>
       </div>
     </div>
-    <div class="col-md-12">
+
+    <div class="col-md-12" *ngIf="courant">
       <div class="card ">
         <div class="card-header bg-primary">Informations sur le compte</div>
         <div class="card-body">
-          <table class="table table-hover">
-            <thead>
-            <tr>
-              <th>Firstname</th>
-              <th>Lastname</th>
-              <th>Email</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>John</td>
-              <td>Doe</td>
-              <td>john@example.com</td>
-            </tr>
-            <tr>
-              <td>Mary</td>
-              <td>Moe</td>
-              <td>mary@example.com</td>
-            </tr>
-            <tr>
-              <td>July</td>
-              <td>Dooley</td>
-              <td>july@example.com</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-    </div>
-    </div>
+          <div>
+            <label><b> Type : </b></label>
+            <label>Compte Courant </label>
+          </div>
+          <div>
+            <label><b>Code Compte : </b> </label>
+            <label>{{compteCourant.codeCompte}}</label>
+          </div>
+          <div>
+            <label><b>Date de creation : </b></label>
+            <label>{{compteCourant.dateCreation | date:'dd-mm-yyyy'}}</label>
+          </div>
+          <div>
+            <label><b>Solde : </b></label>
+            <label>{{compteCourant.solde}}</label>
+          </div>
+          <div>
+            <label> <b>Decouvert : </b></label>
+            <label>{{compteCourant.decouvert}}</label>
+          </div>
 
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12" *ngIf="epargne">
+      <div class="card ">
+        <div class="card-header bg-primary">Informations sur le compte</div>
+        <div class="card-body">
+          <div>
+            <label><b>Client : </b> </label>
+            <label>{{compteEpargne.client.name}}</label>
+          </div>
+          <div>
+            <label> <b>Type : </b></label>
+            <label>Compte Epargne </label>
+          </div>
+          <div>
+            <label><b>Code Compte : </b> </label>
+            <label>{{compteEpargne.codeCompte}}</label>
+          </div>
+          <div>
+            <label><b>Date de creation : </b></label>
+            <label>{{compteEpargne.dateCreation | date:'dd-mm-yyyy : HH-mm-ss'}}</label>
+          </div>
+          <div>
+            <label><b>Solde : </b></label>
+            <label>{{compteEpargne.solde}}</label>
+          </div>
+          <div>
+            <label><b>Taux : </b></label>
+            <label>{{compteEpargne.taux}}</label>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
 </div>
 
 <div class="col-md-6">
   <div class="card ">
     <div class="card-header bg-primary">Opérations sur le compte</div>
     <div class="card-body">
-
+      <form #f="ngForm" (ngSubmit)="operations()">
+      <div>
+        <label><b>Compte : </b> </label>
+        <label>{{compteEpargne.codeCompte}}</label>
+      </div>
+      <div class="form-check-radio">
+        <label class="form-check-label">
+          <input class="form-check-input" type="radio" name="exampleRadios" [(ngModel)]="ope"
+                 value="vir" (change)="onRadioChange($event)" #virbutton>
+          Virement
+          <span class="form-check-sign"></span>
+        </label>
+      </div>
+        <div class="form-check-radio">
+          <label class="form-check-label">
+            <input class="form-check-input" type="radio" (change)="onRadioChangeret($event)" name="exampleRadios" id="exampleRadios2" [(ngModel)]="ope" value="ret">
+            Retrait
+            <span class="form-check-sign"></span>
+          </label>
+        </div>
+      <div class="form-check-radio">
+        <label class="form-check-label">
+          <input class="form-check-input" type="radio" (change)="onRadioChangever($event)" name="exampleRadios" id="exampleRadios3" [(ngModel)]="ope" value="ver"   #verbutton  >
+          Versement
+          <span class="form-check-sign"></span>
+        </label>
+      </div>
+        <div class="col-sm-9" *ngIf="this.isButtonVisible" >
+          <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
+            <input type="text" class="form-control"  placeholder="Compte" name="codeCompte2" [(ngModel)]="codeCompte2" aria-describedby="basic-addon1" (focus)="focus=true" (blur)="focus=false" >
+            <div class="input-group-append">
+              <span class="input-group-text" id="basic-addon2"><i class="fa fa-user" aria-hidden="true"></i></span>
+            </div>
+          </div>
+        </div>
+        <br>
+      <div class="col-sm-9">
+        <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
+          <input type="text" class="form-control"
+                 name="montant" placeholder="Montant" [(ngModel)]="montant" aria-describedby="basic-addon1" (focus)="focus=true" (blur)="focus=false" >
+          <div class="input-group-append">
+            <span class="input-group-text" id="basic-addon1"><i class="fa fa-money" aria-hidden="true"></i></span>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="col text-center">
+      <button type="submit" class="btn btn-outline-success btn-round">Valider</button>
+    </div>
+      </form>
     </div>
   </div>
   <div class="card ">
     <div class="card-header bg-primary">Liste des opérations</div>
     <div class="card-body">
-
+      <table class="table table-hover" >
+        <thead>
+        <tr>
+          <th>Type</th>
+          <th>Date</th>
+          <th>Montant</th>
+        </tr>
+        </thead>
+        <tbody *ngIf="versement">
+          <tr *ngFor="let op of operationVerser" >
+            <td>Versement</td>
+            <td>{{op.dateOperation | date:'dd-mm-yyyy : HH-mm-ss'}}</td>
+            <td>{{op.montant}}</td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="retrait">
+          <tr *ngFor="let op of operationRetrait" >
+            <td>Retrait</td>
+            <td>{{op.dateOperation | date:'dd-mm-yyyy : HH-mm-ss'}}</td>
+            <td>{{op.montant}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
