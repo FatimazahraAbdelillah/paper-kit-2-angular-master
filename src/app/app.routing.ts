@@ -10,16 +10,18 @@ import { LandingComponent } from './examples/landing/landing.component';
 import { NucleoiconsComponent } from './components/nucleoicons/nucleoicons.component';
 import {LoginComponent} from './components/login/login.component';
 import {AccountComponent} from './components/account/account.component';
+import {CanAuthenticationGuard} from './services/CanAuthenticationGuard.service';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: 'home',             component: ComponentsComponent },
-    { path: 'user-profile',     component: ProfileComponent },
-    { path: 'signup',           component: SignupComponent },
+    { path: 'home',             component: ComponentsComponent},
+    { path: 'user-profile',     component: ProfileComponent},
+    { path: 'signup',           component: SignupComponent},
     { path: 'login',           component: LoginComponent },
-    { path: 'landing',          component: LandingComponent },
-    { path: 'nucleoicons',      component: NucleoiconsComponent },
-    { path: 'account',      component: AccountComponent},
+    { path: 'landing',          component: LandingComponent},
+    { path: 'nucleoicons',      component: NucleoiconsComponent},
+    { path: 'account',      component: AccountComponent, canActivate: [CanAuthenticationGuard],
+        data: { roles: ['admin']}},
 ];
 
 @NgModule({

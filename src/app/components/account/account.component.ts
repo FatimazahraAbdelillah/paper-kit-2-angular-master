@@ -4,6 +4,7 @@ import {ModelCompte} from '../../model/model.compte';
 import {$} from 'protractor';
 import {OperationsService} from '../../services/operations.service';
 import {NgForm} from '@angular/forms';
+import {KeycloakService} from 'keycloak-angular';
 
 @Component({
   selector: 'app-account',
@@ -39,9 +40,12 @@ export class AccountComponent implements OnInit {
   montant = '';
   ope: any;
   isButtonVisible = false;
-  constructor(private compteService: CompteService, private  operationsService: OperationsService) { }
+  username: any;
+  constructor(private compteService: CompteService, private  operationsService: OperationsService, protected keycloakAngular: KeycloakService) { }
 
   ngOnInit() {
+    this.username = this.keycloakAngular.getUsername()
+    console.log(this.keycloakAngular.getUsername();
     this.forVirement = false;
     this.code = false;
     this.courant = false;
@@ -134,4 +138,8 @@ export class AccountComponent implements OnInit {
   onRadioChangever($event: Event) {
     this.isButtonVisible = false
   }
+
+    logout() {
+      this.keycloakAngular.logout();
+    }
 }

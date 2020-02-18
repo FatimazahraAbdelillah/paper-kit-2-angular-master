@@ -21,9 +21,6 @@
         <li class="nav-item">
           <a class="nav-link text-primary" href="#">&nbsp;Portefeuille</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-primary" href="#">&nbsp;Offres</a>
-        </li>
       </ul>
       </div>
       <ul class="navbar-nav ml-auto">
@@ -34,14 +31,15 @@
           <a class="nav-link text-primary" href="#"><i class="nc-icon nc-bell-55" aria-hidden="true"></i>&nbsp;</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-primary"  [routerLink]="['/home']">&nbsp;DÉCONNEXION</a>
+          <a class="nav-link text-primary" style="cursor: pointer" (click)="logout()" >&nbsp;DÉCONNEXION</a>
         </li>
       </ul>
     </div>
 
   </div>
 </nav>
-
+<br>
+<h4><span>Hello, {{this.username}}</span></h4>
 <div class="container pt-4">
   <div class="row">
   <div class="col-md-6">

@@ -26,8 +26,8 @@
                     </a>
                 </li>
                 <li class="nav-item" *ngIf="!isDocumentation()">
-                    <button type="button" [routerLink]="['/login']" class="btn btn-primary btn-round">Connexion</button>
-                    <button type="button" [routerLink]="['/signup']" class="btn btn-outline-primary btn-round">Ouvrir un compte</button>
+                    <button type="button" (click)="login()" class="btn btn-primary btn-round">Connexion</button>
+                    <button type="button" (click)="register()" class="btn btn-outline-primary btn-round">Ouvrir un compte</button>
                 </li>
             </ul>
         </div>

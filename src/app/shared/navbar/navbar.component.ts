@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import {KeycloakService} from 'keycloak-angular';
 
 @Component({
     selector: 'app-navbar',
@@ -10,7 +11,7 @@ export class NavbarComponent implements OnInit {
     private toggleButton: any;
     private sidebarVisible: boolean;
 
-    constructor(public location: Location, private element : ElementRef) {
+    constructor(public location: Location, private element : ElementRef, protected keycloakAngular: KeycloakService) {
         this.sidebarVisible = false;
     }
 
@@ -70,5 +71,11 @@ export class NavbarComponent implements OnInit {
         else {
             return false;
         }
+    }
+    login() {
+        this.keycloakAngular.login();
+    }
+    register() {
+        this.keycloakAngular.register();
     }
 }
