@@ -11,15 +11,16 @@ import { NucleoiconsComponent } from './components/nucleoicons/nucleoicons.compo
 import {LoginComponent} from './components/login/login.component';
 import {AccountComponent} from './components/account/account.component';
 import {CanAuthenticationGuard} from './services/CanAuthenticationGuard.service';
+import {ClientComponent} from './components/client/client.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: 'home',             component: ComponentsComponent},
-    { path: 'user-profile',     component: ProfileComponent},
-    { path: 'signup',           component: SignupComponent},
-    { path: 'login',           component: LoginComponent },
-    { path: 'landing',          component: LandingComponent},
-    { path: 'nucleoicons',      component: NucleoiconsComponent},
+    { path: 'home',             component: ComponentsComponent, canActivate: [CanAuthenticationGuard]},
+    { path: 'user-profile',     component: ProfileComponent , canActivate: [CanAuthenticationGuard]},
+    { path: 'client',           component: ClientComponent, canActivate: [CanAuthenticationGuard], data: { roles: ['user']}},
+    { path: 'login',           component: LoginComponent , canActivate: [CanAuthenticationGuard]},
+    { path: 'landing',          component: LandingComponent, canActivate: [CanAuthenticationGuard]},
+    { path: 'nucleoicons',      component: NucleoiconsComponent, canActivate: [CanAuthenticationGuard]},
     { path: 'account',      component: AccountComponent, canActivate: [CanAuthenticationGuard],
         data: { roles: ['admin']}},
 ];

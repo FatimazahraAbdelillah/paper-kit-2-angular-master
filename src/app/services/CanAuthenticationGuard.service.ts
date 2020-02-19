@@ -14,7 +14,9 @@ export class CanAuthenticationGuard extends KeycloakAuthGuard implements CanActi
         return new Promise(async (resolve, reject) => {
             if (!this.authenticated) {
                 this.keycloakAngular.login();
-                return;
+                resolve(false)
+            } else if (this.authenticated) {
+            resolve(true)
             }
             console.log('role restriction given at app-routing.module for this route', route.data.roles);
             console.log('User roles coming after login from keycloak :', this.roles);

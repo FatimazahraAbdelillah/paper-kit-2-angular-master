@@ -45,7 +45,7 @@ export class AccountComponent implements OnInit {
 
   ngOnInit() {
     this.username = this.keycloakAngular.getUsername()
-    console.log(this.keycloakAngular.getUsername();
+    console.log(this.keycloakAngular.getUsername())
     this.forVirement = false;
     this.code = false;
     this.courant = false;

@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import {KeycloakService} from 'keycloak-angular';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-navbar',
@@ -11,7 +12,7 @@ export class NavbarComponent implements OnInit {
     private toggleButton: any;
     private sidebarVisible: boolean;
 
-    constructor(public location: Location, private element : ElementRef, protected keycloakAngular: KeycloakService) {
+    constructor(public location: Location, public router: Router,  private element : ElementRef, protected keycloakAngular: KeycloakService) {
         this.sidebarVisible = false;
     }
 
@@ -74,6 +75,14 @@ export class NavbarComponent implements OnInit {
     }
     login() {
         this.keycloakAngular.login();
+      /*  console.log(this.keycloakAngular.getUserRoles()[0])
+        if (this.keycloakAngular.getKeycloakInstance().authenticated) {
+            if (this.keycloakAngular.getUserRoles()[0] === 'admin') {
+                this.router.navigate(['/account'])
+            } else {
+                this.router.navigate(['/signup'])
+            }
+        }*/
     }
     register() {
         this.keycloakAngular.register();

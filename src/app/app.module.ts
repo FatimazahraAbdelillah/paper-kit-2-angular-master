@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {APP_INITIALIZER, NgModule} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RouterModule } from '@angular/router';
+import {Router, RouterLink, RouterModule} from '@angular/router';
 import { AppRoutingModule } from './app.routing';
 
 import { AppComponent } from './app.component';
@@ -18,6 +18,8 @@ import { AccountComponent } from './components/account/account.component';
 import {CompteService} from './services/compte.service';
 import {config} from 'rxjs';
 import {CanAuthenticationGuard} from './services/CanAuthenticationGuard.service';
+import {getToken} from 'codelyzer/angular/styles/cssLexer';
+import {error} from 'util';
 export function initializer(keycloak: KeycloakService): () => Promise<any> {
   return (): Promise<any> => keycloak.init({
     config: {
@@ -27,11 +29,22 @@ export function initializer(keycloak: KeycloakService): () => Promise<any> {
     },
     initOptions: {
       onLoad: 'check-sso',
-      checkLoginIframe: false
+      checkLoginIframe: false,
     },
     enableBearerInterceptor: true,
     bearerExcludedUrls: ['/assets', '/clients/public']
-  });
+  })
+      .then((authenticated) => {
+      if (keycloak.getUserRoles()[0] === 'admin') {
+        console.log('addmiiiiinnn')
+        location.replace('http://localhost:4200/#/account')
+
+      } else {
+        console.log('useeeeer')
+      location.replace('http://localhost:4200/#/client')
+      }
+      }
+  );
 }
 @NgModule({
   declarations: [

@@ -18,6 +18,7 @@ import {AccountComponent} from './account/account.component';
 import {NavbarComponent} from '../shared/navbar/navbar.component';
 import {SignupComponent} from './signup/signup.component';
 import {LoginComponent} from './login/login.component';
+import { ClientComponent } from './client/client.component';
 
 @NgModule({
     imports: [
@@ -40,7 +41,8 @@ import {LoginComponent} from './login/login.component';
         NotificationComponent,
         NgbdModalComponent,
         NgbdModalContent,
-        AccountComponent
+        AccountComponent,
+        ClientComponent
     ],
     entryComponents: [NgbdModalContent],
     exports: [ ComponentsComponent ]
