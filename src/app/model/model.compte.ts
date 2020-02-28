@@ -5,4 +5,5 @@ export class ModelCompte {
     public type: string;
     public decouvert: string;
     public taux: string;
+    public name: string;
 }

@@ -21,4 +21,7 @@ export class CompteService {
     Retrait(codeCompte: string, montant: string) {
         return this.http.post(this.host + '/saveoperation/retrait/' + codeCompte  + '/' + montant,   null);
     }
+    Client() {
+        return this.http.get(this.host + '/comptes');
+    }
 }

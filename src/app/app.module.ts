@@ -34,7 +34,7 @@ export function initializer(keycloak: KeycloakService): () => Promise<any> {
     enableBearerInterceptor: true,
     bearerExcludedUrls: ['/assets', '/clients/public']
   })
-      .then((authenticated) => {
+     .then((authenticated) => {
       if (keycloak.getUserRoles()[0] === 'admin') {
         console.log('addmiiiiinnn')
         location.replace('http://localhost:4200/#/account')

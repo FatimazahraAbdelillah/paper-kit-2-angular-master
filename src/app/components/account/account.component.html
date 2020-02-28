@@ -39,7 +39,7 @@
   </div>
 </nav>
 <br>
-<h4><span>Hello, {{this.username}}</span></h4>
+<h4><span>&nbsp;&nbsp;Hello,&nbsp; {{this.username}}</span></h4>
 <div class="container pt-4">
   <div class="row">
   <div class="col-md-6">
@@ -71,7 +71,7 @@
           </div>
           <div>
             <label><b>Date de creation : </b></label>
-            <label>{{compteCourant.dateCreation | date:'dd-mm-yyyy'}}</label>
+            <label>{{compteCourant.dateCreation | date:'dd-MM-yyyy'}}</label>
           </div>
           <div>
             <label><b>Solde : </b></label>
@@ -103,7 +103,7 @@
           </div>
           <div>
             <label><b>Date de creation : </b></label>
-            <label>{{compteEpargne.dateCreation | date:'dd-mm-yyyy : HH-mm-ss'}}</label>
+            <label>{{compteEpargne.dateCreation | date:'dd-MM-yyyy : HH-mm-ss'}}</label>
           </div>
           <div>
             <label><b>Solde : </b></label>
@@ -190,14 +190,14 @@
         <tbody *ngIf="versement">
           <tr *ngFor="let op of operationVerser" >
             <td>Versement</td>
-            <td>{{op.dateOperation | date:'dd-mm-yyyy : HH-mm-ss'}}</td>
+            <td>{{op.dateOperation | date:'dd-MM-yyyy : HH-mm-ss'}}</td>
             <td>{{op.montant}}</td>
           </tr>
         </tbody>
         <tbody *ngIf="retrait">
           <tr *ngFor="let op of operationRetrait" >
             <td>Retrait</td>
-            <td>{{op.dateOperation | date:'dd-mm-yyyy : HH-mm-ss'}}</td>
+            <td>{{op.dateOperation | date:'dd-MM-yyyy : HH-mm-ss'}}</td>
             <td>{{op.montant}}</td>
           </tr>
         </tbody>

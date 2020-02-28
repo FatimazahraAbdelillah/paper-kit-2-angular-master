@@ -12,4 +12,7 @@ export class OperationsService {
     getAllOperations(codeCompte: string) {
         return this.http.get(this.host + '/operations/search/findOperationsByCompte_CodeCompte?code=' + codeCompte);
     }
+    getAllOperationsuser() {
+        return this.http.get(this.host + '/operations' );
+    }
 }
