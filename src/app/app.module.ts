@@ -20,6 +20,7 @@ import {config} from 'rxjs';
 import {CanAuthenticationGuard} from './services/CanAuthenticationGuard.service';
 import {getToken} from 'codelyzer/angular/styles/cssLexer';
 import {error} from 'util';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 export function initializer(keycloak: KeycloakService): () => Promise<any> {
   return (): Promise<any> => keycloak.init({
     config: {
@@ -60,7 +61,8 @@ export function initializer(keycloak: KeycloakService): () => Promise<any> {
     ExamplesModule,
     AppRoutingModule,
     HttpClientModule,
-    KeycloakAngularModule
+    KeycloakAngularModule,
+    BrowserAnimationsModule
   ],
   providers: [{
     provide: APP_INITIALIZER,

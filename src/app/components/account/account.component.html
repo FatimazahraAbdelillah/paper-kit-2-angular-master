@@ -39,7 +39,7 @@
   </div>
 </nav>
 <br>
-<h4><span>&nbsp;&nbsp;Hello,&nbsp; {{this.username}}</span></h4>
+<h4><strong>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;Bonjour {{this.username}},</strong></h4>
 <div class="container pt-4">
   <div class="row">
   <div class="col-md-6">
@@ -191,14 +191,14 @@
           <tr *ngFor="let op of operationVerser" >
             <td>Versement</td>
             <td>{{op.dateOperation | date:'dd-MM-yyyy : HH-mm-ss'}}</td>
-            <td>{{op.montant}}</td>
+            <td class="text-success">+ {{op.montant}}</td>
           </tr>
         </tbody>
         <tbody *ngIf="retrait">
           <tr *ngFor="let op of operationRetrait" >
             <td>Retrait</td>
             <td>{{op.dateOperation | date:'dd-MM-yyyy : HH-mm-ss'}}</td>
-            <td>{{op.montant}}</td>
+            <td class="text-danger">- {{op.montant}}</td>
           </tr>
         </tbody>
       </table>
