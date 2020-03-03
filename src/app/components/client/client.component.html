@@ -1,0 +1,230 @@
+<nav class="navbar navbar-expand-lg bg-white">
+  <div class="container">
+    <img src="assets/logosh.png" width="70" height="70" >
+    <button class="navbar-toggler navbar-toggler-right burger-menu" type="button" data-toggle="collapse" data-target="#navbar-primary" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-bar"></span>
+      <span class="navbar-toggler-bar"></span>
+      <span class="navbar-toggler-bar"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar-primary">
+      <div class="left">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link text-primary" href="#">&nbsp;Récapitulatif</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-primary" href="#">&nbsp;Activité</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-primary" href="#">&nbsp;Envoyer et demander</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-primary" href="#">&nbsp;Portefeuille</a>
+          </li>
+        </ul>
+      </div>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link text-primary" href="#"><i class="nc-icon nc-settings-gear-65" aria-hidden="true"></i>&nbsp;</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-primary" href="#"><i class="nc-icon nc-bell-55" aria-hidden="true"></i>&nbsp;</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-primary" style="cursor: pointer" (click)="logout()" >&nbsp;DÉCONNEXION</a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</nav>
+<br>
+<div class="container pt-4">
+  <div class="row">
+    <div class="col-md-6">
+      <h4><strong>Bonjour {{this.username}},</strong></h4>
+      <br>
+      <div class="card ">
+        <label class="text-primary"><h4><strong> &nbsp; Votre Solde :</strong></h4></label>
+        <div class="card-body">
+          <label class="text-dark"><h4><strong> &nbsp; {{this.soldeAccount}} USD‬</strong></h4></label>
+        </div>
+      </div>
+
+    <div class="col-md-12">
+      <div class="card-header bg-primary">Liste des opérations</div>
+      <div class="card-body">
+        <table class="table table-hover" >
+          <thead>
+          <tr>
+            <th>Type</th>
+            <th>Date</th>
+            <th>Montant</th>
+          </tr>
+          </thead>
+          <tbody *ngIf="versement">
+          <tr *ngFor="let op of operationVerser" >
+            <td>Versement</td>
+            <td>{{op.dateOperation | date:'dd-MM-yyyy : HH-mm-ss'}}</td>
+            <td class="text-success">+ {{op.montant}}</td>
+          </tr>
+          </tbody>
+          <tbody *ngIf="retrait">
+          <tr *ngFor="let op of operationRetrait" >
+            <td>Retrait</td>
+            <td>{{op.dateOperation | date:'dd-MM-yyyy : HH-mm-ss'}}</td>
+            <td class="text-danger">- {{op.montant}}</td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+      </div>
+
+    </div>
+    <div class="col-md-6">
+      <div class="card ">
+        <div class="card-header bg-primary">Effectuer une opération</div>
+        <div class="card-body" *ngIf="!this.isButtonVisiblesuiv && !this.isButtonVisiblesuivdem">
+          <form #f="ngForm" (ngSubmit)="operations()">
+            <div>
+              <label><b>opérations : </b> </label>
+            </div>
+            <div class="form-check-radio">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="exampleRadios" [(ngModel)]="ope"
+                       value="vir" (change)="onRadioChange($event)" #virbutton>
+                Envoyer
+                <span class="form-check-sign"></span>
+              </label>
+            </div>
+            <div class="form-check-radio">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" (change)="onRadioChangever($event)" name="exampleRadios" id="exampleRadios3" [(ngModel)]="ope" value="ver"   #verbutton  >
+                Demander
+                <span class="form-check-sign"></span>
+              </label>
+            </div>
+            <div class="col-sm-9" *ngIf="this.isButtonVisible" >
+              <strong> Envoyer un paiement à </strong>
+              <br>
+              <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
+                <br>
+                <input type="email" class="form-control"  placeholder="Noms ou adresse email" name="nomEnv" [(ngModel)]="nomEnv" aria-describedby="basic-addon1" (focus)="focus=true" (blur)="focus=false" required>
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-addon2"><i class="fa fa-user" aria-hidden="true"></i></span>
+                </div>
+
+              </div>
+              <br>
+              <div class="col text-center">
+                <button type="submit" class="btn btn-outline-success btn-round" (click)="suivEnvoyer($event)">Suivant</button>
+              </div>
+            </div>
+            <br>
+            <div class="col-sm-9"  *ngIf="!this.isButtonVisible">
+              <strong> Demander un paiement à</strong>
+              <br>
+              20 personnes maximum peuvent vous rembourser, même si elles n'ont pas de compte. Il vous suffit d'utiliser leur adresse email pour leur envoyer une demande d'argent.
+              <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
+                <input type="email" class="form-control"
+                       name="nomEnv" placeholder="Noms ou adresse email" [(ngModel)]="nomEnv" aria-describedby="basic-addon1"
+                       (focus)="focus=true" (blur)="focus=false" required>
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
+                </div>
+              </div>
+              <br>
+              <div class="col text-center">
+                <button type="submit" class="btn btn-outline-success btn-round" (click)="suivDemander($event)">Suivant</button>
+              </div>
+            </div>
+            <br>
+          </form>
+        </div>
+        <div class="card-body" *ngIf="this.isButtonVisiblesuiv">
+          <div class="text-center">
+            <img  src="assets/img/user.png">  &nbsp;{{this.nomEnv}}
+            <br>
+            <br>
+            <div class="col-md-11">
+            <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
+              <input type="text" class="form-control"
+                     name="montant" placeholder="Montant" [(ngModel)]="montant" aria-describedby="basic-addon1" (focus)="focus=true" (blur)="focus=false" >
+              <div class="input-group-append">
+                <span class="input-group-text" id="basic-addo"><i class="fa fa-money" aria-hidden="true"></i></span>
+              </div>
+            </div>
+            </div>
+            <br>
+            <div class="col-md-11">
+              <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
+                <input type="text" class="form-control"
+                       name="montant" placeholder="Adresse de livraison" [(ngModel)]="adresse" aria-describedby="basic-addon1" (focus)="focus=true" (blur)="focus=false" >
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-add"><i class="fa fa-location-arrow" aria-hidden="true"></i></span>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="col text-center">
+              <button type="submit" class="btn btn-outline-success btn-round" (click)="toast($event)">Valider</button>
+              <button type="submit" class="btn btn-outline-default btn-round" (click)="annulerEnvoyer($event)">Annuler</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body" *ngIf="this.isButtonVisiblesuivdem">
+          <div class="text-center">
+            <img  src="assets/img/user.png">  &nbsp;{{this.nomEnv}}
+            <br>
+            <br>
+            <div class="col-md-11">
+              <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
+                <input type="text" class="form-control"
+                       name="montant" placeholder="Montant" [(ngModel)]="montant" aria-describedby="basic-addon1" (focus)="focus=true" (blur)="focus=false" >
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-a"><i class="fa fa-money" aria-hidden="true"></i></span>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="col-md-11">
+              <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
+                <input type="text" class="form-control"
+                       name="fac" placeholder=" Ajouter une remarque (facultatif)" [(ngModel)]="fac" aria-describedby="basic-addon1" (focus)="focus=true" (blur)="focus=false" >
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-ad"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="col text-center">
+              <button type="submit" class="btn btn-outline-success btn-round" (click)="toast($event)">Demander un paiement</button>
+              <button type="submit" class="btn btn-outline-default btn-round" (click)="annulerEnvoyer($event)">Annuler</button>
+            </div>
+          </div>
+        </div>
+      </div>
+   <!-- <div class="col-md-2">
+      &nbsp; &nbsp; &nbsp;
+      <br>
+      <br>
+      &nbsp; &nbsp; &nbsp;<img src="assets/img/recieve.png">
+      <br>
+      &nbsp; &nbsp;  <strong> Envoyer</strong>
+    </div>
+    <div class="col-md-3">
+      &nbsp; &nbsp; &nbsp;
+      <br>
+      <img src="assets/img/rec.png">
+      <br>
+      <strong> Demander</strong>
+    </div>
+  </div>-->
+
+
+  </div>
+
+  </div>
+</div>
